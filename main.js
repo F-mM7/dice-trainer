@@ -1,58 +1,38 @@
-//create question
-let ans;
-function setQuestion() {
-  ans = Math.floor(Math.random() * 26);
-  display.innerHTML = ans + 1;
-  console.log(String.fromCodePoint("A".codePointAt(0) + ans));
-}
-setQuestion();
+const ctx = canvas.getContext("2d");
+const H = 12;
+const W = 12;
+const L = 100;
+const T = 4;
 
-function confirmAnswer(c) {
-  return function () {
-    display.classList.remove("correct", "incorrect");
-    display.offsetWidth;
-    if (c.codePointAt(0) - "A".codePointAt(0) == ans) {
-      setQuestion();
-      display.classList.add("correct");
-    } else {
-      display.classList.add("incorrect");
-    }
-  };
+canvas.height = H * L;
+canvas.width = W * L;
+let b = new Array(H).fill(new Array(W).fill(false));
+
+window.onload = reset;
+resetButton.onclick = reset;
+
+function reset() {
+  for (let i = 0; i < H; ++i) b[i].fill(false);
+  drawAll();
 }
 
-//create software keyboard
-const qwerty = ["QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM"];
-const boardMergin = ["0", "2%", "7%"];
-for (let i = 0; i < 3; ++i) {
-  let ul = document.createElement("ul");
-  let m = document.createElement("li");
-  m.style.width = boardMergin[i];
-  ul.appendChild(m);
-  for (let c of qwerty[i]) {
-    let b = document.createElement("button");
-    b.id = "Key" + c;
-    b.innerHTML = c;
-    b.onclick = confirmAnswer(c);
-
-    let li = document.createElement("li");
-    li.appendChild(b);
-    ul.appendChild(li);
-  }
-  keyboard.appendChild(ul);
+function drawAll() {
+  // ctx.clearRect(0, 0, canvas.height, canvas.width);
+  for (let i = 0; i < H; ++i) for (let j = 0; j < W; ++j) draw(i, j);
 }
 
-//hardware keyboard
-document.addEventListener("keyup", upKey);
-document.addEventListener("keydown", downKey);
+function draw(i, j) {
+  ctx.fillStyle = b[i][j] ? "black" : "white";
+  ctx.fillRect(j * L, i * L, L, L);
+  ctx.lineWidth = T;
+  ctx.strokeRect(j * L, i * L, L, L);
+}
 
-function downKey(e) {
-  if (!e.ctrlKey && e.code.substring(0, 3) == "Key") {
-    document.getElementById(e.code).classList.add("press");
-  }
-}
-function upKey(e) {
-  if (!e.ctrlKey && e.code.substring(0, 3) == "Key") {
-    document.getElementById(e.code).classList.remove("press");
-    confirmAnswer(e.code[3])();
-  }
-}
+canvas.onclick = function (event) {
+  const rct = canvas.getBoundingClientRect();
+  let i = Math.floor(((event.pageY - rct.top) * H) / rct.height);
+  let j = Math.floor(((event.pageX - rct.left) * W) / rct.width);
+  console.log(i, j);
+  b[i][j] = !b[i][j];
+  draw(i, j);
+};

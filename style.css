@@ -1,47 +1,5 @@
-/* size */
-* {
-  text-align: center;
-  font-size: 7vw;
-}
-p {
-  margin: auto;
-}
-ul {
-  display: flex;
-  margin: 0;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  width: 10%;
-}
-button {
+canvas {
+  height: 100%;
   width: 100%;
-  padding: 0;
-  aspect-ratio: 1;
-}
-
-button:active,
-button.press {
-  background-color: gray;
-}
-
-/* animation */
-.correct {
-  animation-name: correct;
-  animation-duration: 1s;
-}
-.incorrect {
-  animation-name: incorrect;
-  animation-duration: 1s;
-}
-@keyframes correct {
-  0% {
-    background-color: green;
-  }
-}
-@keyframes incorrect {
-  0% {
-    background-color: red;
-  }
+  /* border: 1px solid; */
 }
