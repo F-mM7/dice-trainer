@@ -13,10 +13,14 @@ body {
   display: flex;
 }
 
+canvas {
+  border: 0.75vmin solid;
+}
+
 .margin {
   margin: 0;
-  height: calc(min(99vw, 82vh) / 10);
-  width: calc(min(99vw, 82vh) / 10);
+  height: calc(min(97vw, 80vh) / 10);
+  width: calc(min(97vw, 80vh) / 10);
 }
 
 div {
@@ -36,14 +40,14 @@ button {
   flex-direction: row;
 }
 canvas {
-  height: min(99vw, 82vh);
-  width: min(99vw, 82vh);
+  height: min(97vw, 80vh);
+  width: min(97vw, 80vh);
 }
 button {
-  height: calc(min(99vw, 82vh) / 10);
-  width: calc(min(99vw, 82vh) / 10);
+  height: calc(min(97vw, 80vh) / 10);
+  width: calc(min(97vw, 80vh) / 10);
 
-  font-size: calc(min(99vw, 82vh) / 36);
+  font-size: calc(min(97vw, 80vh) / 36);
 }
 /* } */
 
@@ -55,18 +59,18 @@ button {
     flex-direction: column;
   }
   canvas {
-    height: min(99vh, 82vw);
-    width: min(99vh, 82vw);
+    height: min(97vh, 80vw);
+    width: min(97vh, 80vw);
   }
   .margin {
-    height: calc(min(99vh, 82vw) / 10);
-    width: calc(min(99vh, 82vw) / 10);
+    height: calc(min(97vh, 80vw) / 10);
+    width: calc(min(97vh, 80vw) / 10);
   }
   button {
-    height: calc(min(99vh, 82vw) / 10);
-    width: calc(min(99vh, 82vw) / 10);
+    height: calc(min(97vh, 80vw) / 10);
+    width: calc(min(97vh, 80vw) / 10);
 
-    font-size: calc(min(99vh, 82vw) / 36);
+    font-size: calc(min(97vh, 80vw) / 36);
   }
 }
 
