@@ -8,7 +8,7 @@ body {
   display: flex;
 }
 
-.mother {
+.root {
   height: min(100vh, 109vw);
   width: min(100vw, 109vh);
 }
@@ -28,11 +28,11 @@ button {
 }
 
 /* @media (orientation: portrait) { */
-div {
-  flex-direction: row;
-}
-.mother {
+.root {
   flex-direction: column;
+}
+.buttons {
+  flex-direction: row;
 }
 canvas {
   height: min(98vw, 90vh);
@@ -47,11 +47,11 @@ button {
 /* } */
 
 @media (orientation: landscape) {
-  div {
-    flex-direction: column;
-  }
-  .mother {
+  .root {
     flex-direction: row;
+  }
+  .buttons {
+    flex-direction: column;
   }
   canvas {
     height: min(99vh, 90vw);
