@@ -1,6 +1,10 @@
+body {
+  margin: 0;
+}
 canvas {
-  height: 100%;
-  width: 100%;
+  margin: 0 auto;
+  height: min(98vw, 90vh);
+  width: min(98vw, 90vh);
 }
 p {
   display: flex;
@@ -9,6 +13,6 @@ button {
   /* margin: 0 auto; */
   display: block;
   margin: auto;
-  height: 100px;
-  width: 100px;
+  height: min(calc(96vh - min(98vw, 90vh)), 100px);
+  width: min(calc(96vh - min(98vw, 90vh)), 100px);
 }
