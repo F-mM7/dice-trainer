@@ -16,3 +16,23 @@ button {
   height: min(calc(96vh - min(98vw, 90vh)), 100px);
   width: min(calc(96vh - min(98vw, 90vh)), 100px);
 }
+
+/* animation */
+.correct {
+  animation-name: correct;
+  animation-duration: 1s;
+}
+.incorrect {
+  animation-name: incorrect;
+  animation-duration: 1s;
+}
+@keyframes correct {
+  0% {
+    background-color: green;
+  }
+}
+@keyframes incorrect {
+  0% {
+    background-color: red;
+  }
+}
