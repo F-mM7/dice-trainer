@@ -7,9 +7,7 @@ const T = 6;
 //grid
 const dx = [1, 0, -1, 0];
 const dy = [0, 1, 0, -1];
-function rot(k) {
-  nx = -dy[k];
-  ny = dx[k];
+function rot(nx, ny) {
   return [
     [nx * nx, 0, ny],
     [0, ny * ny, -nx],
@@ -83,9 +81,8 @@ let max_y;
 let visited = {};
 
 function add(p) {
-  let x = p[p.length - 1][0];
-  let y = p[p.length - 1][1];
-  let v = p[p.length - 1][2];
+  const x = p[p.length - 1][0];
+  const y = p[p.length - 1][1];
   let legal = [];
   for (let k = 0; k < 4; ++k) {
     let nx = x + dx[k];
@@ -112,12 +109,7 @@ function add(p) {
 
   visited[[nx, ny]] = true;
 
-  let nv = [0, 0, 0];
-  let r = rot(k);
-  for (let i = 0; i < 3; ++i)
-    for (let j = 0; j < 3; ++j) nv[i] += r[i][j] * v[j];
-
-  p.push([nx, ny, nv]);
+  p.push([nx, ny]);
 
   min_x = Math.min(min_x, x);
   min_y = Math.min(min_y, y);
@@ -136,13 +128,9 @@ function setQ() {
 
   visited = {};
   visited[[0, 0]] = true;
-
-  p.push([0, 0, [0, 0, 1]]);
-
+  p.push([0, 0]);
   while (add(p)) {}
-
-  p.reverse();
-
+  p = [...p].reverse();
   while (add(p)) {}
 
   p.forEach((e) => {
@@ -153,13 +141,23 @@ function setQ() {
   //make answer list
   for (let i = 0; i < H; ++i) a[i].fill(false);
 
-  p.forEach((e) => {
-    let flag = true;
-    for (let i = 0; i < 3; ++i) if (e[2][i] != p[0][2][i]) flag = false;
-    if (flag) a[e[0]][e[1]] = true;
-  });
+  a[p[0][0]][p[0][1]] = true;
+  let v = [0, 0, 1];
+  let N = p.length;
+  for (let i = 1; i < N; ++i) {
+    const dx = p[i][0] - p[i - 1][0];
+    const dy = p[i][1] - p[i - 1][1];
+    const r = rot(-dy, dx);
+    let nv = [0, 0, 0];
+    for (let i = 0; i < 3; ++i)
+      for (let j = 0; j < 3; ++j) nv[i] += r[i][j] * v[j];
+    for (let i = 0; i < 3; ++i) v[i] = nv[i];
+    console.log(r);
+    console.log(v);
+    if (v[2] == 1) a[p[i][0]][p[i][1]] = true;
+  }
 
-  console.log(p);
+  console.log(a);
 }
 function confirmA() {
   canvas.classList.remove("correct", "incorrect");
