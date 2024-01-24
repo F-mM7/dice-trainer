@@ -2,7 +2,7 @@
 const H = 10;
 const W = 10;
 const L = 40;
-const T = 4;
+const T = 6;
 
 //grid
 const dx = [1, 0, -1, 0];
@@ -26,38 +26,34 @@ ctx.lineWidth = T;
 
 function color(h) {
   let x, y, z;
-  if (false) {
-    let t = ((h * 5) / 6) * 2 * Math.PI;
-    x = Math.cos(t) + (1 - Math.cos(t)) / 3;
-    y = (1 - Math.cos(t)) / 3 + Math.sin(t) / Math.sqrt(3);
-    z = (1 - Math.cos(t)) / 3 - Math.sin(t) / Math.sqrt(3);
-    let a = Math.min(Math.abs(x), Math.abs(y), Math.abs(z));
-    let b = Math.max(Math.abs(x), Math.abs(y), Math.abs(z));
-    x = (Math.sign(x) * (Math.abs(x) - a)) / (b - a);
-    y = (Math.sign(y) * (Math.abs(y) - a)) / (b - a);
-    z = (Math.sign(z) * (Math.abs(z) - a)) / (b - a);
+  // h *= 2 / 3; //blue
+  h *= 3 / 4; //violet
+  // h *= 19 / 24; //purple
+  // h *= 5 / 6; //magenta
+  if (h < 1 / 6) {
+    x = 1;
+    y = h * 6;
+    z = 0;
+  } else if (h < 2 / 6) {
+    x = (1 / 3 - h) * 6;
+    y = 1;
+    z = 0;
+  } else if (h < 3 / 6) {
+    x = 0;
+    y = 1;
+    z = (h - 1 / 3) * 6;
+  } else if (h < 4 / 6) {
+    x = 0;
+    y = (2 / 3 - h) * 6;
+    z = 1;
+  } else if (h < 5 / 6) {
+    x = (h - 2 / 3) * 6;
+    y = 0;
+    z = 1;
   } else {
-    if (h < 0.2) {
-      x = 1;
-      y = h / 0.2;
-      z = 0;
-    } else if (h < 0.4) {
-      x = (0.4 - h) / 0.2;
-      y = 1;
-      z = 0;
-    } else if (h < 0.6) {
-      x = 0;
-      y = 1;
-      z = (h - 0.4) / 0.2;
-    } else if (h < 0.8) {
-      x = 0;
-      y = (0.8 - h) / 0.2;
-      z = 1;
-    } else {
-      x = (h - 0.8) / 0.2;
-      y = 0;
-      z = 1;
-    }
+    x = 1;
+    y = 0;
+    z = (1 - h) * 6;
   }
   return "rgb(" + [x * 255, y * 255, z * 255] + ")";
 }

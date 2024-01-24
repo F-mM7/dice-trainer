@@ -1,20 +1,65 @@
 body {
   margin: 0;
-}
-canvas {
-  margin: 0 auto;
-  height: min(98vw, 90vh);
-  width: min(98vw, 90vh);
-}
-p {
+  height: min(100vh, 120vw);
+  width: min(100vw, 120vh);
   display: flex;
+
+  touch-action: manipulation;
 }
-button {
-  /* margin: 0 auto; */
-  display: block;
+
+div {
+  display: flex;
   margin: auto;
-  height: min(calc(96vh - min(98vw, 90vh)), 100px);
-  width: min(calc(96vh - min(98vw, 90vh)), 100px);
+}
+
+canvas {
+  margin: auto;
+}
+
+button {
+  display: block;
+
+  padding: 0;
+  text-align: center;
+}
+
+@media (orientation: landscape) {
+  body {
+    flex-direction: row;
+  }
+  div {
+    flex-direction: column;
+  }
+  canvas {
+    height: min(99vh, 90vw);
+    width: min(99vh, 90vw);
+  }
+
+  button {
+    height: calc(min(99vh, 90vw) / 10);
+    width: calc(min(99vh, 90vw) / 10);
+
+    font-size: calc(min(99vh, 90vw) / 36);
+  }
+}
+
+@media (orientation: portrait) {
+  body {
+    flex-direction: column;
+  }
+  div {
+    flex-direction: row;
+  }
+  canvas {
+    height: min(98vw, 90vh);
+    width: min(98vw, 90vh);
+  }
+  button {
+    height: calc(min(99vw, 90vh) / 10);
+    width: calc(min(99vw, 90vh) / 10);
+
+    font-size: calc(min(99vw, 90vh) / 36);
+  }
 }
 
 /* animation */
@@ -33,6 +78,6 @@ button {
 }
 @keyframes incorrect {
   0% {
-    background-color: red;
+    background-color: maroon;
   }
 }
