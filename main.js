@@ -76,49 +76,18 @@ clearButton.onclick = clear;
 
 //question
 let p = new Array();
+let min_x;
+let min_y;
+let max_x;
+let max_y;
+let visited = {};
 
-function setQ() {
-  //make path
-  p.splice(0);
-
-  let x = 0;
-  let y = 0;
-  let v = [0, 0, 1];
-
-  let min_x = 0;
-  let min_y = 0;
-  let max_x = 0;
-  let max_y = 0;
-
-  let visited = {};
-  visited[[0, 0]] = true;
-
-  let miss = 0;
-
-  p.push([x, y, true]);
-
-  while (true) {
-    let legal = [];
-    for (let k = 0; k < 4; ++k) {
-      let nx = x + dx[k];
-      let ny = y + dy[k];
-      if (
-        nx - min_x >= H ||
-        ny - min_y >= W ||
-        max_x - nx >= H ||
-        max_y - ny >= W
-      ) {
-        continue;
-      }
-      if (visited[[nx, ny]]) {
-        continue;
-      }
-      legal.push(k);
-    }
-
-    if (legal.length == 0) break;
-    let k = legal[Math.floor(Math.random() * legal.length)];
-
+function add(p) {
+  let x = p[p.length - 1][0];
+  let y = p[p.length - 1][1];
+  let v = p[p.length - 1][2];
+  let legal = [];
+  for (let k = 0; k < 4; ++k) {
     let nx = x + dx[k];
     let ny = y + dy[k];
     if (
@@ -127,32 +96,50 @@ function setQ() {
       max_x - nx >= H ||
       max_y - ny >= W
     ) {
-      ++miss;
       continue;
     }
     if (visited[[nx, ny]]) {
-      ++miss;
       continue;
     }
-
-    visited[[nx, ny]] = true;
-
-    let nv = [0, 0, 0];
-    let r = rot(k);
-    for (let i = 0; i < 3; ++i)
-      for (let j = 0; j < 3; ++j) nv[i] += r[i][j] * v[j];
-    for (let i = 0; i < 3; ++i) v[i] = nv[i];
-
-    p.push([nx, ny, nv[2] == 1]);
-
-    x = nx;
-    y = ny;
-
-    min_x = Math.min(min_x, x);
-    min_y = Math.min(min_y, y);
-    max_x = Math.max(max_x, x);
-    max_y = Math.max(max_y, y);
+    legal.push(k);
   }
+
+  if (legal.length == 0) return false;
+  let k = legal[Math.floor(Math.random() * legal.length)];
+
+  let nx = x + dx[k];
+  let ny = y + dy[k];
+
+  visited[[nx, ny]] = true;
+
+  let nv = [0, 0, 0];
+  let r = rot(k);
+  for (let i = 0; i < 3; ++i)
+    for (let j = 0; j < 3; ++j) nv[i] += r[i][j] * v[j];
+
+  p.push([nx, ny, nv]);
+
+  min_x = Math.min(min_x, x);
+  min_y = Math.min(min_y, y);
+  max_x = Math.max(max_x, x);
+  max_y = Math.max(max_y, y);
+  return true;
+}
+
+function setQ() {
+  //make path
+  p.splice(0);
+  min_x = 0;
+  min_y = 0;
+  max_x = 0;
+  max_y = 0;
+
+  visited = {};
+  visited[[0, 0]] = true;
+
+  p.push([0, 0, [0, 0, 1]]);
+
+  while (add(p)) {}
 
   p.forEach((e) => {
     e[0] -= min_x;
@@ -163,7 +150,7 @@ function setQ() {
   for (let i = 0; i < H; ++i) a[i].fill(false);
 
   p.forEach((e) => {
-    if (e[2]) a[e[0]][e[1]] = true;
+    if (e[2][2] == 1) a[e[0]][e[1]] = true;
   });
 
   console.log(p);
