@@ -17,4 +17,5 @@ CLEAR を押すと選択が解除される.
 
 ## 問題
 ![Q](https://github.com/F-mM7/dice-trainer/assets/121377389/da1cd630-c241-4874-a3cf-5bc0d1a4b457)
+## 正答
 ![A](https://github.com/F-mM7/dice-trainer/assets/121377389/963317ad-c8b4-4de3-9505-bbb6fd7ee07a)
