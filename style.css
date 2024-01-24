@@ -9,8 +9,8 @@ body {
 }
 
 .root {
-  height: min(100vh, 109vw);
-  width: min(100vw, 109vh);
+  height: min(100vh, 120vw);
+  width: min(100vw, 120vh);
 }
 
 div {
