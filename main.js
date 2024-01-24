@@ -1,3 +1,5 @@
+console.log("ver 0.2");
+
 //setting
 const H = 10;
 const W = 10;
@@ -65,63 +67,60 @@ for (let i = 0; i < H; ++i) {
 }
 
 //html
-window.onload = reset;
-enterButton.onclick = confirmA;
+window.onload = set;
+enterButton.onclick = judge;
 clearButton.onclick = clear;
 
-//question
+//path
 let p = new Array();
-let min_x;
-let min_y;
-let max_x;
-let max_y;
-let visited = {};
 
+//generate path
+let x_min;
+let y_min;
+let x_max;
+let y_max;
+let visited = {};
 function add(p) {
   const x = p[p.length - 1][0];
   const y = p[p.length - 1][1];
   let legal = [];
   for (let k = 0; k < 4; ++k) {
-    let nx = x + dx[k];
-    let ny = y + dy[k];
+    const nx = x + dx[k];
+    const ny = y + dy[k];
+
     if (
-      nx - min_x >= H ||
-      ny - min_y >= W ||
-      max_x - nx >= H ||
-      max_y - ny >= W
-    ) {
+      nx - x_min >= H ||
+      ny - y_min >= W ||
+      x_max - nx >= H ||
+      y_max - ny >= W
+    )
       continue;
-    }
-    if (visited[[nx, ny]]) {
-      continue;
-    }
+    if (visited[[nx, ny]]) continue;
+
     legal.push(k);
   }
 
   if (legal.length == 0) return false;
-  let k = legal[Math.floor(Math.random() * legal.length)];
 
-  let nx = x + dx[k];
-  let ny = y + dy[k];
+  const k = legal[Math.floor(Math.random() * legal.length)];
+  const nx = x + dx[k];
+  const ny = y + dy[k];
 
   visited[[nx, ny]] = true;
-
   p.push([nx, ny]);
+  x_min = Math.min(x_min, x);
+  y_min = Math.min(y_min, y);
+  x_max = Math.max(x_max, x);
+  y_max = Math.max(y_max, y);
 
-  min_x = Math.min(min_x, x);
-  min_y = Math.min(min_y, y);
-  max_x = Math.max(max_x, x);
-  max_y = Math.max(max_y, y);
   return true;
 }
-
-function setQ() {
-  //make path
+function genPath() {
   p.splice(0);
-  min_x = 0;
-  min_y = 0;
-  max_x = 0;
-  max_y = 0;
+  x_min = 0;
+  y_min = 0;
+  x_max = 0;
+  y_max = 0;
 
   visited = {};
   visited[[0, 0]] = true;
@@ -131,9 +130,14 @@ function setQ() {
   while (add(p)) {}
 
   p.forEach((e) => {
-    e[0] -= min_x;
-    e[1] -= min_y;
+    e[0] -= x_min;
+    e[1] -= y_min;
   });
+}
+
+//question
+function set() {
+  genPath();
 
   //make answer list
   for (let i = 0; i < H; ++i) a[i].fill(false);
@@ -149,49 +153,46 @@ function setQ() {
     for (let i = 0; i < 3; ++i)
       for (let j = 0; j < 3; ++j) nv[i] += r[i][j] * v[j];
     for (let i = 0; i < 3; ++i) v[i] = nv[i];
-    console.log(r);
-    console.log(v);
+
     if (v[2] == 1) a[p[i][0]][p[i][1]] = true;
   }
-
-  console.log(a);
+  clear();
 }
-function confirmA() {
+function judge() {
   canvas.classList.remove("correct", "incorrect");
   canvas.offsetWidth;
-  let v = true;
-  for (let i = 0; i < H; ++i)
-    for (let j = 0; j < W; ++j) if (b[i][j] != a[i][j]) v = false;
-  if (v) {
-    reset();
+  if (isCorrect()) {
+    set();
     canvas.classList.add("correct");
   } else {
     canvas.classList.add("incorrect");
   }
 }
-function reset() {
-  setQ();
-  clear();
+function isCorrect() {
+  for (let i = 0; i < H; ++i)
+    for (let j = 0; j < W; ++j) if (b[i][j] != a[i][j]) return false;
+  return true;
 }
+
 function clear() {
   for (let i = 0; i < H; ++i) b[i].fill(false);
   b[p[0][0]][p[0][1]] = true;
-  drawAll();
+  draw();
 }
 
-function drawAll() {
-  for (let i = 0; i < H; ++i) for (let j = 0; j < W; ++j) draw(i, j);
-  drawLine();
+function draw() {
+  for (let i = 0; i < H; ++i) for (let j = 0; j < W; ++j) drawCell(i, j);
+  drawPath();
 }
 
-function draw(i, j) {
+function drawCell(i, j) {
   ctx.clearRect(j * L, i * L, L, L);
   ctx.strokeStyle = "black";
   ctx.strokeRect(j * L, i * L, L, L);
   for (let k = 0; k < 4; ++k) {}
   if (b[i][j]) ctx.fillRect(j * L, i * L, L, L);
 }
-function drawLine() {
+function drawPath() {
   let N = p.length;
   for (let i = 0; i < N - 1; ++i) {
     ctx.strokeStyle = color(i / (N - 2));
@@ -207,6 +208,6 @@ canvas.onclick = function (event) {
   let i = Math.floor(((event.pageY - rct.top) * H) / rct.height);
   let j = Math.floor(((event.pageX - rct.left) * W) / rct.width);
   b[i][j] = !b[i][j];
-  draw(i, j);
-  drawLine();
+  drawCell(i, j);
+  drawPath();
 };
