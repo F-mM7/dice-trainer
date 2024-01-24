@@ -8,17 +8,18 @@ body {
   display: flex;
 }
 
-.root {
-  height: min(100vh, 120vw);
-  width: min(100vw, 120vh);
+.root,
+.buttons {
+  display: flex;
+}
+
+.margin {
+  margin: 0;
+  height: calc(min(99vw, 82vh) / 10);
+  width: calc(min(99vw, 82vh) / 10);
 }
 
 div {
-  display: flex;
-  margin: auto;
-}
-
-canvas {
   margin: auto;
 }
 
@@ -35,14 +36,14 @@ button {
   flex-direction: row;
 }
 canvas {
-  height: min(98vw, 90vh);
-  width: min(98vw, 90vh);
+  height: min(99vw, 82vh);
+  width: min(99vw, 82vh);
 }
 button {
-  height: calc(min(99vw, 90vh) / 10);
-  width: calc(min(99vw, 90vh) / 10);
+  height: calc(min(99vw, 82vh) / 10);
+  width: calc(min(99vw, 82vh) / 10);
 
-  font-size: calc(min(99vw, 90vh) / 36);
+  font-size: calc(min(99vw, 82vh) / 36);
 }
 /* } */
 
@@ -54,15 +55,18 @@ button {
     flex-direction: column;
   }
   canvas {
-    height: min(99vh, 90vw);
-    width: min(99vh, 90vw);
+    height: min(99vh, 82vw);
+    width: min(99vh, 82vw);
   }
-
+  .margin {
+    height: calc(min(99vh, 82vw) / 10);
+    width: calc(min(99vh, 82vw) / 10);
+  }
   button {
-    height: calc(min(99vh, 90vw) / 10);
-    width: calc(min(99vh, 90vw) / 10);
+    height: calc(min(99vh, 82vw) / 10);
+    width: calc(min(99vh, 82vw) / 10);
 
-    font-size: calc(min(99vh, 90vw) / 36);
+    font-size: calc(min(99vh, 82vw) / 36);
   }
 }
 
