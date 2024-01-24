@@ -62,11 +62,11 @@ function color(h) {
 let a = new Array(H);
 let b = new Array(H);
 let c = new Array(H);
-for (var i = 0; i < H; ++i) {
+for (let i = 0; i < H; ++i) {
   a[i] = new Array(W);
   b[i] = new Array(W);
   c[i] = new Array(W);
-  for (var j = 0; j < W; ++j) c[i][j] = new Array(4);
+  for (let j = 0; j < W; ++j) c[i][j] = new Array(4);
 }
 
 //html
@@ -97,8 +97,28 @@ function setQ() {
 
   p.push([x, y, true]);
 
-  while (miss < 100) {
-    let k = Math.floor(Math.random() * 4);
+  while (true) {
+    let legal = [];
+    for (let k = 0; k < 4; ++k) {
+      let nx = x + dx[k];
+      let ny = y + dy[k];
+      if (
+        nx - min_x >= H ||
+        ny - min_y >= W ||
+        max_x - nx >= H ||
+        max_y - ny >= W
+      ) {
+        continue;
+      }
+      if (visited[[nx, ny]]) {
+        continue;
+      }
+      legal.push(k);
+    }
+
+    if (legal.length == 0) break;
+    let k = legal[Math.floor(Math.random() * legal.length)];
+
     let nx = x + dx[k];
     let ny = y + dy[k];
     if (
@@ -119,9 +139,9 @@ function setQ() {
 
     let nv = [0, 0, 0];
     let r = rot(k);
-    for (var i = 0; i < 3; ++i)
-      for (var j = 0; j < 3; ++j) nv[i] += r[i][j] * v[j];
-    for (var i = 0; i < 3; ++i) v[i] = nv[i];
+    for (let i = 0; i < 3; ++i)
+      for (let j = 0; j < 3; ++j) nv[i] += r[i][j] * v[j];
+    for (let i = 0; i < 3; ++i) v[i] = nv[i];
 
     p.push([nx, ny, nv[2] == 1]);
 
@@ -152,8 +172,8 @@ function confirmA() {
   canvas.classList.remove("correct", "incorrect");
   canvas.offsetWidth;
   let v = true;
-  for (var i = 0; i < H; ++i)
-    for (var j = 0; j < W; ++j) if (b[i][j] != a[i][j]) v = false;
+  for (let i = 0; i < H; ++i)
+    for (let j = 0; j < W; ++j) if (b[i][j] != a[i][j]) v = false;
   if (v) {
     reset();
     canvas.classList.add("correct");
@@ -180,12 +200,12 @@ function draw(i, j) {
   ctx.clearRect(j * L, i * L, L, L);
   ctx.strokeStyle = "black";
   ctx.strokeRect(j * L, i * L, L, L);
-  for (var k = 0; k < 4; ++k) {}
+  for (let k = 0; k < 4; ++k) {}
   if (b[i][j]) ctx.fillRect(j * L, i * L, L, L);
 }
 function drawLine() {
   let N = p.length;
-  for (var i = 0; i < N - 1; ++i) {
+  for (let i = 0; i < N - 1; ++i) {
     ctx.strokeStyle = color(i / (N - 2));
     ctx.beginPath();
     ctx.moveTo(p[i][1] * L + L / 2, p[i][0] * L + L / 2);
