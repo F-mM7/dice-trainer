@@ -153,16 +153,16 @@ function setQ() {
   console.log(p);
 }
 function confirmA() {
-  body.classList.remove("correct", "incorrect");
-  body.offsetWidth;
+  canvas.classList.remove("correct", "incorrect");
+  canvas.offsetWidth;
   let v = true;
   for (var i = 0; i < H; ++i)
     for (var j = 0; j < W; ++j) if (b[i][j] != a[i][j]) v = false;
   if (v) {
     reset();
-    body.classList.add("correct");
+    canvas.classList.add("correct");
   } else {
-    body.classList.add("incorrect");
+    canvas.classList.add("incorrect");
   }
 }
 function reset() {
