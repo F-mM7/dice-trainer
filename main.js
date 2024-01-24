@@ -1,4 +1,4 @@
-console.log("ver 0.6");
+console.log("ver 0.7");
 
 //setting
 const H = 10;
@@ -58,19 +58,35 @@ function color(h) {
   return "rgb(" + [x * 255, y * 255, z * 255] + ")";
 }
 
-//state
-let a = new Array(H);
-let b = new Array(H);
-for (let i = 0; i < H; ++i) {
-  a[i] = new Array(W);
-  b[i] = new Array(W);
-}
-
 //html
 window.onload = set;
 enterButton.onclick = judge;
 clearButton.onclick = clear;
+canvas.onclick = function (event) {
+  const rct = canvas.getBoundingClientRect();
+  let i = Math.floor(((event.pageY - rct.top) * H) / rct.height);
+  let j = Math.floor(((event.pageX - rct.left) * W) / rct.width);
+  toggle(i, j);
+};
+function toggle(i, j) {
+  if (b[i][j]) {
+    b[i][j] = false;
+    ctx.clearRect(j * L, i * L, L, L);
+    ctx.strokeStyle = "black";
+    ctx.strokeRect(j * L, i * L, L, L);
+  } else {
+    b[i][j] = true;
+    ctx.fillRect(j * L, i * L, L, L);
+  }
+  drawPath();
+}
 
+//answer
+let a = new Array(H);
+for (let i = 0; i < H; ++i) a[i] = new Array(W);
+//choice
+let b = new Array(H);
+for (let i = 0; i < H; ++i) b[i] = new Array(W);
 //path
 let p = new Array();
 
@@ -172,17 +188,16 @@ function isCorrect() {
   return true;
 }
 
+//draw
 function clear() {
   for (let i = 0; i < H; ++i) b[i].fill(false);
   b[p[0][0]][p[0][1]] = true;
   draw();
 }
-
 function draw() {
   for (let i = 0; i < H; ++i) for (let j = 0; j < W; ++j) drawCell(i, j);
   drawPath();
 }
-
 function drawCell(i, j) {
   ctx.clearRect(j * L, i * L, L, L);
   ctx.strokeStyle = "black";
@@ -198,23 +213,4 @@ function drawPath() {
     ctx.lineTo(p[i + 1][1] * L + L / 2, p[i + 1][0] * L + L / 2);
     ctx.stroke();
   }
-}
-
-canvas.onclick = function (event) {
-  const rct = canvas.getBoundingClientRect();
-  let i = Math.floor(((event.pageY - rct.top) * H) / rct.height);
-  let j = Math.floor(((event.pageX - rct.left) * W) / rct.width);
-  toggle(i, j);
-};
-function toggle(i, j) {
-  if (b[i][j]) {
-    b[i][j] = false;
-    ctx.clearRect(j * L, i * L, L, L);
-    ctx.strokeStyle = "black";
-    ctx.strokeRect(j * L, i * L, L, L);
-  } else {
-    b[i][j] = true;
-    ctx.fillRect(j * L, i * L, L, L);
-  }
-  drawPath();
 }
