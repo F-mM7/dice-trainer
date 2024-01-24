@@ -1,11 +1,15 @@
-#概要
+# 概要
+
 さいころをグリッド上で転がす謎解きの訓練用アプリケーション
 
-#ルール
+# リンク
+
+[リンク](https://f-mm7.github.io/dice-trainer/)
+
+# ルール
+
 立方体がグリッド上を経路(colered line)に沿って転がる場合
 初期位置(赤端)と同じ面で接地するマスを全て選択(gray)状態にし,
 ENTER を押す.
 
 CLEAR を押すと選択が解除される.
-
-[リンク](https://f-mm7.github.io/dice-trainer/)
