@@ -141,6 +141,10 @@ function setQ() {
 
   while (add(p)) {}
 
+  p.reverse();
+
+  while (add(p)) {}
+
   p.forEach((e) => {
     e[0] -= min_x;
     e[1] -= min_y;
@@ -150,7 +154,9 @@ function setQ() {
   for (let i = 0; i < H; ++i) a[i].fill(false);
 
   p.forEach((e) => {
-    if (e[2][2] == 1) a[e[0]][e[1]] = true;
+    let flag = true;
+    for (let i = 0; i < 3; ++i) if (e[2][i] != p[0][2][i]) flag = false;
+    if (flag) a[e[0]][e[1]] = true;
   });
 
   console.log(p);
