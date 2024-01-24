@@ -164,6 +164,7 @@ function reset() {
 }
 function clear() {
   for (let i = 0; i < H; ++i) b[i].fill(false);
+  b[p[0][0]][p[0][1]] = true;
   drawAll();
 }
 
