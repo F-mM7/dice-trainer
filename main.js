@@ -1,4 +1,4 @@
-console.log("ver 0.5");
+console.log("ver 0.6");
 
 //setting
 const H = 10;
@@ -204,7 +204,17 @@ canvas.onclick = function (event) {
   const rct = canvas.getBoundingClientRect();
   let i = Math.floor(((event.pageY - rct.top) * H) / rct.height);
   let j = Math.floor(((event.pageX - rct.left) * W) / rct.width);
-  b[i][j] = !b[i][j];
-  drawCell(i, j);
-  drawPath();
+  toggle(i, j);
 };
+function toggle(i, j) {
+  if (b[i][j]) {
+    b[i][j] = false;
+    ctx.clearRect(j * L, i * L, L, L);
+    ctx.strokeStyle = "black";
+    ctx.strokeRect(j * L, i * L, L, L);
+  } else {
+    b[i][j] = true;
+    ctx.fillRect(j * L, i * L, L, L);
+  }
+  drawPath();
+}
