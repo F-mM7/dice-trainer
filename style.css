@@ -1,32 +1,21 @@
 html {
   touch-action: manipulation;
 }
-
 body {
   margin: 0;
   height: 100vh;
   display: flex;
 }
-
 .root,
 .buttons {
   display: flex;
 }
-
 canvas {
   border: 0.75vmin solid;
 }
-
-.margin {
-  margin: 0;
-  height: calc(min(97vw, 80vh) / 10);
-  width: calc(min(97vw, 80vh) / 10);
-}
-
 div {
   margin: auto;
 }
-
 button {
   padding: 0;
   text-align: center;
@@ -43,6 +32,7 @@ canvas {
   height: min(97vw, 80vh);
   width: min(97vw, 80vh);
 }
+.margin,
 button {
   height: calc(min(97vw, 80vh) / 10);
   width: calc(min(97vw, 80vh) / 10);
@@ -62,10 +52,7 @@ button {
     height: min(97vh, 80vw);
     width: min(97vh, 80vw);
   }
-  .margin {
-    height: calc(min(97vh, 80vw) / 10);
-    width: calc(min(97vh, 80vw) / 10);
-  }
+  .margin,
   button {
     height: calc(min(97vh, 80vw) / 10);
     width: calc(min(97vh, 80vw) / 10);

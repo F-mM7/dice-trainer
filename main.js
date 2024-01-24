@@ -1,4 +1,4 @@
-console.log("ver 0.3");
+console.log("ver 0.4");
 
 //setting
 const H = 10;
