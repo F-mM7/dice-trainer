@@ -1,5 +1,3 @@
-console.log("ver 0.0");
-
 //setting
 const H = 10;
 const W = 10;
