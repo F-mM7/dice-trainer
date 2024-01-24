@@ -23,6 +23,23 @@ button {
   text-align: center;
 }
 
+body {
+  flex-direction: column;
+}
+div {
+  flex-direction: row;
+}
+canvas {
+  height: min(98vw, 90vh);
+  width: min(98vw, 90vh);
+}
+button {
+  height: calc(min(99vw, 90vh) / 10);
+  width: calc(min(99vw, 90vh) / 10);
+
+  font-size: calc(min(99vw, 90vh) / 36);
+}
+
 @media (orientation: landscape) {
   body {
     flex-direction: row;
@@ -40,25 +57,6 @@ button {
     width: calc(min(99vh, 90vw) / 10);
 
     font-size: calc(min(99vh, 90vw) / 36);
-  }
-}
-
-@media (orientation: portrait) {
-  body {
-    flex-direction: column;
-  }
-  div {
-    flex-direction: row;
-  }
-  canvas {
-    height: min(98vw, 90vh);
-    width: min(98vw, 90vh);
-  }
-  button {
-    height: calc(min(99vw, 90vh) / 10);
-    width: calc(min(99vw, 90vh) / 10);
-
-    font-size: calc(min(99vw, 90vh) / 36);
   }
 }
 
