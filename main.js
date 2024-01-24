@@ -1,3 +1,5 @@
+console.log("ver 0.0");
+
 //setting
 const H = 10;
 const W = 10;
@@ -59,12 +61,9 @@ function color(h) {
 //state
 let a = new Array(H);
 let b = new Array(H);
-let c = new Array(H);
 for (let i = 0; i < H; ++i) {
   a[i] = new Array(W);
   b[i] = new Array(W);
-  c[i] = new Array(W);
-  for (let j = 0; j < W; ++j) c[i][j] = new Array(4);
 }
 
 //html
