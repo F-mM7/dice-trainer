@@ -1,4 +1,4 @@
-console.log("ver 0.4");
+console.log("ver 0.5");
 
 //setting
 const H = 10;
@@ -79,7 +79,7 @@ let x_min;
 let y_min;
 let x_max;
 let y_max;
-let visited = {};
+let visited;
 function add(p) {
   const x = p[p.length - 1][0];
   const y = p[p.length - 1][1];
@@ -117,14 +117,14 @@ function add(p) {
 }
 function genPath() {
   p.splice(0);
+  p.push([0, 0]);
   x_min = 0;
   y_min = 0;
   x_max = 0;
   y_max = 0;
-
   visited = {};
   visited[[0, 0]] = true;
-  p.push([0, 0]);
+
   while (add(p)) {}
   p = [...p].reverse();
   while (add(p)) {}
@@ -162,11 +162,9 @@ function judge() {
   canvas.classList.remove("correct", "incorrect");
   canvas.offsetWidth;
   if (isCorrect()) {
-    set();
     canvas.classList.add("correct");
-  } else {
-    canvas.classList.add("incorrect");
-  }
+    set();
+  } else canvas.classList.add("incorrect");
 }
 function isCorrect() {
   for (let i = 0; i < H; ++i)
@@ -189,7 +187,6 @@ function drawCell(i, j) {
   ctx.clearRect(j * L, i * L, L, L);
   ctx.strokeStyle = "black";
   ctx.strokeRect(j * L, i * L, L, L);
-  for (let k = 0; k < 4; ++k) {}
   if (b[i][j]) ctx.fillRect(j * L, i * L, L, L);
 }
 function drawPath() {
