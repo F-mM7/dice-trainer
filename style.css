@@ -1,0 +1,82 @@
+html {
+  touch-action: manipulation;
+}
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+}
+.root,
+.buttons {
+  display: flex;
+}
+canvas {
+  border: 0.75vmin solid;
+}
+div {
+  margin: auto;
+}
+button {
+  padding: 0;
+  text-align: center;
+}
+
+/* @media (orientation: portrait) { */
+.root {
+  flex-direction: column;
+}
+.buttons {
+  flex-direction: row;
+}
+canvas {
+  height: min(97vw, 80vh);
+  width: min(97vw, 80vh);
+}
+.margin,
+button {
+  height: calc(min(97vw, 80vh) / 10);
+  width: calc(min(97vw, 80vh) / 10);
+
+  font-size: calc(min(97vw, 80vh) / 36);
+}
+/* } */
+
+@media (orientation: landscape) {
+  .root {
+    flex-direction: row;
+  }
+  .buttons {
+    flex-direction: column;
+  }
+  canvas {
+    height: min(97vh, 80vw);
+    width: min(97vh, 80vw);
+  }
+  .margin,
+  button {
+    height: calc(min(97vh, 80vw) / 10);
+    width: calc(min(97vh, 80vw) / 10);
+
+    font-size: calc(min(97vh, 80vw) / 36);
+  }
+}
+
+/* animation */
+.correct {
+  animation-name: correct;
+  animation-duration: 1s;
+}
+.incorrect {
+  animation-name: incorrect;
+  animation-duration: 1s;
+}
+@keyframes correct {
+  0% {
+    background-color: green;
+  }
+}
+@keyframes incorrect {
+  0% {
+    background-color: maroon;
+  }
+}
